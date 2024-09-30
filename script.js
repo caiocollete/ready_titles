@@ -77,3 +77,11 @@ function desmascararTelefone(input) {
 
     alert(mensagem);
 }
+
+function valueChange() {
+    if(TextDevolucao && TextRegistro && name){
+        document.getElementById("inputTextReg").value = TextRegistro;
+        document.getElementById("inputTextDevol").value = TextDevolucao;
+        document.getElementById("inputNmae").value = name;        
+    }
+}
