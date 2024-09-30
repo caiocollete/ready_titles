@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" href="logo.png">
+    <link rel="icon" href="logo.png">,
+    <link rel="stylesheet" href="style.css">
     <title>Avisar Titulo</title>
 </head>
+
 <body class="bg-white d-flex flex-column justify-content-between vh-100 overflow-hidden">
     <header class="d-flex justify-content-center">
-        <button type="button" class="btn btn-outline-primary" style="border: 0;" data-bs-toggle="modal" data-bs-target="#ModalConfiguracoes" onclick=valueChange()>
+        <div class="itens">
+            <ion-icon class="icon" aria-label="Opções" name="settings-outline" href="#opct"></ion-icon>
+            <a class="link-underline link-underline-opacity-0 text-black" href="#opct" data-bs-toggle="modal" data-bs-target="#ModalConfiguracoes" onclick=valueChange()>Opções</a>
+        </div>
+
+        <!-- <button type="button" class="btn btn-outline-primary" style="border: 0;" data-bs-toggle="modal" data-bs-target="#ModalConfiguracoes" onclick=valueChange()>
             <ion-icon aria-label="Opções" name="settings-outline" style="width: 32px; height: 32px; margin-top: 10px;"></ion-icon>
-          </button>
+          </button> -->
     </header>
 
     <!-- Modal -->
@@ -72,6 +79,25 @@
             <button type="button" class="btn btn-primary" onclick=submit()>Enviar</button>
         </div>
         
+    </div>
+
+    <div class="modal fade" id="ModalWarning" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ModalLabel">Configurações</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h1>Texto não definidos</h1>
+                    <p>Os textos não foram definidos, por favor vá em opções e insira os textos.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick=openSettings()>Ir para opções</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>

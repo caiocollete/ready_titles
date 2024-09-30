@@ -1,26 +1,39 @@
-var TextRegistro, TextDevolucao, name;
+var TextRegistro, TextDevolucao, nameFunc;
 
 function submit() {
-    const number = desmascararTelefone(document.getElementById('numberPhone').value); 
-    const protocolo = document.getElementById('protocol').value; 
-    const tipoMensagem = document.querySelector('input[name="opcao"]:checked').value;
-    
-    var mensagem;
-    
-    if (tipoMensagem == 1) { // Registro
-        mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
-        encodeURIComponent(TextRegistro.replace("{prot}",protocolo).replace("{func}", name));
-    } 
-    else if (tipoMensagem == 2) { // Devolução
-        mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
-        encodeURIComponent(TextDevolucao.replace("{prot}",protocolo).replace("{func}", name));
+    if(!TextRegistro || !TextDevolucao || !nameFunc){
+        const modal = new bootstrap.Modal(document.getElementById('ModalWarning'));
+        modal.show();
     }
-    
-    if (mensagem) {
-        window.open(mensagem, "_blank"); // Abre a URL no WhatsApp em uma nova aba
-    } else {
-        alert("Por favor, selecione uma opção e preencha todos os campos.");
+    else{
+        const number = desmascararTelefone(document.getElementById('numberPhone').value); 
+        const protocolo = document.getElementById('protocol').value; 
+        const tipoMensagem = document.querySelector('input[name="opcao"]:checked').value;
+        
+        var mensagem;
+        
+        if (tipoMensagem == 1) { // Registro
+            mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
+            encodeURIComponent(TextRegistro.replace("{prot}",protocolo).replace("{func}", nameFunc));
+        } 
+        else if (tipoMensagem == 2) { // Devolução
+            mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
+            encodeURIComponent(TextDevolucao.replace("{prot}",protocolo).replace("{func}", nameFunc));
+        }
+        
+        if (mensagem) {
+            window.open(mensagem, "_blank"); // Abre a URL no WhatsApp em uma nova aba
+        } else {
+            alert("Por favor, selecione uma opção e preencha todos os campos.");
+        }
     }
+}
+
+function openSettings(){
+    const modal = new bootstrap.Modal(document.getElementById('ModalConfiguracoes'));
+    const modalW = bootstrap.Modal.getInstance(document.getElementById('ModalWarning'));
+    modalW.hide();
+    modal.show();
 }
 
 
@@ -67,7 +80,7 @@ function desmascararTelefone(input) {
     }
 
     if (inputName) {
-        name = inputName;
+        nameFunc = inputName;
         mensagem += "Nome funcionario alterado.\n";
     }
 
@@ -79,9 +92,9 @@ function desmascararTelefone(input) {
 }
 
 function valueChange() {
-    if(TextDevolucao && TextRegistro && name){
+    if(TextDevolucao && TextRegistro && nameFunc){
         document.getElementById("inputTextReg").value = TextRegistro;
         document.getElementById("inputTextDevol").value = TextDevolucao;
-        document.getElementById("inputNmae").value = name;        
+        document.getElementById("inputNmae").value = nameFunc;        
     }
 }
