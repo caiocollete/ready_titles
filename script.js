@@ -1,3 +1,5 @@
+var TextRegistro, TextDevolucao, name;
+
 function submit() {
     const number = desmascararTelefone(document.getElementById('numberPhone').value); 
     const protocolo = document.getElementById('protocol').value; 
@@ -7,11 +9,11 @@ function submit() {
     
     if (tipoMensagem == 1) { // Registro
         mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
-        encodeURIComponent("REGISTRO - Prezado cliente, " + protocolo + " - Mensagem REGISTRO");    
+        encodeURIComponent(TextRegistro.replace("{prot}",protocolo).replace("{func}", name));
     } 
     else if (tipoMensagem == 2) { // Devolução
         mensagem = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(number) + "&text=" + 
-        encodeURIComponent("DEVOLUCAO - Prezado cliente, " + protocolo + "- Mensagem Devolucao");    
+        encodeURIComponent(TextDevolucao.replace("{prot}",protocolo).replace("{func}", name));
     }
     
     if (mensagem) {
@@ -37,7 +39,6 @@ function mascararTelefone(input) {
       telefone = telefone.replace(/^(\d*)/, '($1');
     }
 
-    // Atualiza o valor no campo
     input.value = telefone;
 }
 
@@ -45,3 +46,34 @@ function desmascararTelefone(input) {
     const numeroDesmascarado = input.replace('(', '').replace(')', '').replace(' ','').replace('-','');
     return numeroDesmascarado;
   }
+
+
+  function saveChanges() {
+    const inputTextReg = document.getElementById("inputTextReg").value;
+    const inputTextDevol = document.getElementById("inputTextDevol").value;
+    const inputName = document.getElementById("inputName").value;
+
+    let mensagem = "";
+
+  
+    if (inputTextReg) {
+        TextRegistro = inputTextReg;
+        mensagem += "Texto Registro alterado.\n";
+    }
+
+    if (inputTextDevol) {
+        TextDevolucao = inputTextDevol;
+        mensagem += "Texto Devolução alterado.\n";
+    }
+
+    if (inputName) {
+        name = inputName;
+        mensagem += "Nome funcionario alterado.\n";
+    }
+
+    if (!inputTextReg && !inputTextDevol) {
+        mensagem = "Nenhuma mudança foi feita.";
+    }
+
+    alert(mensagem);
+}
